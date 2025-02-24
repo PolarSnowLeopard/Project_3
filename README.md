@@ -1,3 +1,17 @@
+> 课题三两个大模型微服务对接流程
+> * 第一步：在linux系统上安装easyconnect
+>   * 参考网址：https://blog.csdn.net/m0_60789828/article/details/140356886
+> * 第二步：在课题五的系统中打开四个不同的terminal，两个用作课题三子任务二，两个用作课题三子任务三
+>   * terminal1运行`ssh -i C:\Users\MSI-NB\.ssh\id_rsa_pj3 -L 8893:127.0.0.1:8893 zhaofanyu@10.176.55.210`
+>   * terminal2运行`ssh -i C:\Users\MSI-NB\.ssh\id_rsa_pj3 -L 8889:127.0.0.1:8889 zhaofanyu@10.176.55.210`
+>   * terminal3运行microservice_3_3_local.py
+>   * terminal4运行microservice_3_2_local.py
+> * 第三步：在terminal3和4中会返回对应的结果
+>   * 在terminal3中会产生金融风险报告的文本内容，并且在terminal的路径中会产生一个output.pdf
+  * 在terminal4中会返回NL2GQL的结果，为json字典，其中包含GQL语句以及查询结果
+
+---
+
 # 金融风险报告生成服务
 
 这是一个基于 Flask 的 RESTful API 服务，提供自然语言查询转换和金融风险报告生成功能。该系统支持将自然语言查询转换为图数据库查询，并能生成格式化的PDF风险报告。本项目的 API 服务部分由基于 LLM 的智能体自动分析和生成，体现了 AI 辅助开发的创新应用。
