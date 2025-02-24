@@ -19,8 +19,8 @@ RUN mkdir output
 # 安装依赖
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 暴露端口
-EXPOSE 5000
+# 复制应用代码
+COPY . .
 
 # 启动服务
 CMD ["python", "app.py"]
