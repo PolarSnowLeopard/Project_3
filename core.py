@@ -15,6 +15,19 @@ def get_system_font_path() -> str:
     Returns:
         str: 返回系统对应的中文字体路径
     """
+    # 首先检查容器内的字体目录
+    container_fonts = [
+        "/app/fonts/simhei.ttf",
+        "/app/fonts/simsun.ttc",
+        "/usr/share/fonts/truetype/wqy/wqy-microhei.ttc",
+        "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc"
+    ]
+    
+    for font in container_fonts:
+        if os.path.exists(font):
+            return font
+
+    # 如果容器内字体不存在，检查系统字体
     system = platform.system()
     if system == "Windows":
         font_paths = [
@@ -31,6 +44,8 @@ def get_system_font_path() -> str:
         ]
     else:  # Linux
         font_paths = [
+            "/usr/share/fonts/truetype/wqy/wqy-microhei.ttc",
+            "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
             "/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf",
             "/usr/share/fonts/truetype/arphic/uming.ttc",
             "/usr/share/fonts/truetype/arphic/ukai.ttc"
@@ -42,7 +57,7 @@ def get_system_font_path() -> str:
             return path
             
     # 如果没有找到任何字体，返回默认值
-    return "fonts/simsunb.ttf"  # 这将使用当前目录下的字体文件
+    return "./fonts/simsunb.ttf"  # 这将使用当前目录下的字体文件
 
 def query_nl2gql(query: str) -> Optional[Dict[str, Any]]:
     """将自然语言查询转换为图数据库查询并执行。

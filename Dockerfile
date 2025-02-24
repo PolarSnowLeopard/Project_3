@@ -11,14 +11,14 @@ RUN apt-get update && \
     fonts-wqy-zenhei \
     xfonts-wqy \
     curl \
-    netcat \
+    netcat-openbsd \
     iputils-ping \
     net-tools \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # 创建日志目录
-RUN mkdir -p /app/logs /app/output
+RUN mkdir -p /app/logs /app/output /app/fonts
 
 # 设置环境变量
 ENV PYTHONUNBUFFERED=1
@@ -31,6 +31,7 @@ ENV LC_ALL=C.UTF-8
 
 # 复制项目文件
 COPY requirements.txt .
+COPY fonts/ /app/fonts/
 
 # 刷新字体缓存
 RUN fc-cache -fv
@@ -43,7 +44,8 @@ COPY . .
 
 # 确保日志文件存在并设置权限
 RUN touch /app/logs/app.log && \
-    chmod 666 /app/logs/app.log
+    chmod 666 /app/logs/app.log && \
+    chmod -R 755 /app/fonts
 
 # 添加健康检查
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
