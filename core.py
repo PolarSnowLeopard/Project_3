@@ -42,7 +42,7 @@ def get_system_font_path() -> str:
             return path
             
     # 如果没有找到任何字体，返回默认值
-    return "simhei.ttf"  # 这将使用当前目录下的字体文件
+    return "fonts/simsunb.ttf"  # 这将使用当前目录下的字体文件
 
 def query_nl2gql(query: str) -> Optional[Dict[str, Any]]:
     """将自然语言查询转换为图数据库查询并执行。

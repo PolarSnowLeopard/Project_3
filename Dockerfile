@@ -8,7 +8,12 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y \
     fonts-wqy-microhei \
+    fonts-wqy-zenhei \
+    xfonts-wqy \
     curl \
+    netcat \
+    iputils-ping \
+    net-tools \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -20,9 +25,15 @@ ENV PYTHONUNBUFFERED=1
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 ENV LOG_PATH=/app/logs/app.log
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 # 复制项目文件
 COPY requirements.txt .
+
+# 刷新字体缓存
+RUN fc-cache -fv
 
 # 安装依赖
 RUN pip install --no-cache-dir -r requirements.txt
@@ -33,6 +44,10 @@ COPY . .
 # 确保日志文件存在并设置权限
 RUN touch /app/logs/app.log && \
     chmod 666 /app/logs/app.log
+
+# 添加健康检查
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:5000/api/health || exit 1
 
 # 启动服务（使用tee同时输出到控制台和文件）
 CMD python app.py 2>&1 | tee -a /app/logs/app.log
