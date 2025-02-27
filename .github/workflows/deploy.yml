@@ -24,9 +24,6 @@ jobs:
             REPO_URL="${REPO_URL}"
             # 检查项目目录是否存在
             PROJECT_DIR="Project_3"  # 请替换为您服务器上的实际项目目录
-            
-            echo "\$PROJECT_DIR"
-            echo "\$REPO_URL"
 
             if [ -d "\$PROJECT_DIR" ]; then
               # 如果目录存在，进入并拉取最新代码

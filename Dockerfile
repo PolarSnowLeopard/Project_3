@@ -5,7 +5,11 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # 安装中文字体和其他工具
-RUN apt-get update && \
+RUN echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware' > /etc/apt/sources.list && \
+echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware' >> /etc/apt/sources.list && \
+echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware' >> /etc/apt/sources.list && \
+echo 'deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware' >> /etc/apt/sources.list && \
+    apt-get update && \
     apt-get install -y \
     fonts-wqy-microhei \
     fonts-wqy-zenhei \
