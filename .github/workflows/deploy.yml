@@ -22,7 +22,7 @@ jobs:
           ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
           ssh ubuntu@$SERVER_IP << EOF
             # 检查项目目录是否存在
-            PROJECT_DIR="project_3"  # 请替换为您服务器上的实际项目目录
+            PROJECT_DIR="Project_3"  # 请替换为您服务器上的实际项目目录
             
             if [ -d "\$PROJECT_DIR" ]; then
               # 如果目录存在，进入并拉取最新代码
@@ -37,6 +37,5 @@ jobs:
             
             # 使用docker-compose重新构建并启动服务
             docker-compose down
-            docker-compose build --no-cache
-            docker-compose up -d
+            docker-compose up --build -d
           EOF
